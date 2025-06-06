@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, BookOpen, User } from 'lucide-react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Menu, X, BookOpen, User, LogOut } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';
+import { useAuth } from '../../contexts/AuthContext';
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, signOut } = useAuth();
 
   const navigation = [
     { name: 'Home', href: '/' },
@@ -17,6 +20,15 @@ const Navbar: React.FC = () => {
   ];
 
   const isActive = (path: string) => location.pathname === path;
+
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+      navigate('/');
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
+  };
 
   return (
     <nav className="bg-indigo-700 text-white shadow-md">
@@ -44,17 +56,44 @@ const Navbar: React.FC = () => {
                   {item.name}
                 </Link>
               ))}
-              <Link 
-                to="/profile" 
-                className={`${
-                  isActive('/profile')
-                    ? 'bg-indigo-800 text-white'
-                    : 'text-white hover:bg-indigo-600'
-                } ml-4 flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200`}
-              >
-                <User className="h-5 w-5 mr-1" />
-                Profile
-              </Link>
+              
+              {user ? (
+                <div className="relative ml-4 flex items-center space-x-4">
+                  <Link 
+                    to="/profile" 
+                    className={`${
+                      isActive('/profile')
+                        ? 'bg-indigo-800 text-white'
+                        : 'text-white hover:bg-indigo-600'
+                    } flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200`}
+                  >
+                    <User className="h-5 w-5 mr-1" />
+                    Profile
+                  </Link>
+                  <button
+                    onClick={handleSignOut}
+                    className="flex items-center px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-indigo-600 transition-colors duration-200"
+                  >
+                    <LogOut className="h-5 w-5 mr-1" />
+                    Sign Out
+                  </button>
+                </div>
+              ) : (
+                <div className="ml-4 flex items-center space-x-4">
+                  <Link
+                    to="/login"
+                    className="text-white hover:bg-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                  >
+                    Sign In
+                  </Link>
+                  <Link
+                    to="/signup"
+                    className="bg-white text-indigo-700 hover:bg-indigo-50 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                  >
+                    Sign Up
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
           
@@ -64,9 +103,9 @@ const Navbar: React.FC = () => {
               className="inline-flex items-center justify-center p-2 rounded-md text-white hover:bg-indigo-600 focus:outline-none"
             >
               {isMenuOpen ? (
-                <X className="block h-6 w-6\" aria-hidden="true" />
+                <X className="block h-6 w-6" aria-hidden="true" />
               ) : (
-                <Menu className="block h-6 w-6\" aria-hidden="true" />
+                <Menu className="block h-6 w-6" aria-hidden="true" />
               )}
             </button>
           </div>
@@ -90,18 +129,50 @@ const Navbar: React.FC = () => {
                 {item.name}
               </Link>
             ))}
-            <Link
-              to="/profile"
-              className={`${
-                isActive('/profile')
-                  ? 'bg-indigo-800 text-white'
-                  : 'text-white hover:bg-indigo-600'
-              } block px-3 py-2 rounded-md text-base font-medium flex items-center`}
-              onClick={() => setIsMenuOpen(false)}
-            >
-              <User className="h-5 w-5 mr-1" />
-              Profile
-            </Link>
+            
+            {user ? (
+              <>
+                <Link
+                  to="/profile"
+                  className={`${
+                    isActive('/profile')
+                      ? 'bg-indigo-800 text-white'
+                      : 'text-white hover:bg-indigo-600'
+                  } block px-3 py-2 rounded-md text-base font-medium flex items-center`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <User className="h-5 w-5 mr-1" />
+                  Profile
+                </Link>
+                <button
+                  onClick={() => {
+                    handleSignOut();
+                    setIsMenuOpen(false);
+                  }}
+                  className="w-full text-left text-white hover:bg-indigo-600 block px-3 py-2 rounded-md text-base font-medium flex items-center"
+                >
+                  <LogOut className="h-5 w-5 mr-1" />
+                  Sign Out
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  to="/login"
+                  className="text-white hover:bg-indigo-600 block px-3 py-2 rounded-md text-base font-medium"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Sign In
+                </Link>
+                <Link
+                  to="/signup"
+                  className="bg-white text-indigo-700 hover:bg-indigo-50 block px-3 py-2 rounded-md text-base font-medium"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Sign Up
+                </Link>
+              </>
+            )}
           </div>
         </div>
       )}
