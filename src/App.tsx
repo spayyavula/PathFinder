@@ -11,6 +11,9 @@ import Pathways from './pages/Pathways';
 import Resources from './pages/Resources';
 import Profile from './pages/Profile';
 import NotFound from './pages/NotFound';
+import Login from './pages/auth/Login';
+import SignUp from './pages/auth/SignUp';
+import ForgotPassword from './pages/auth/ForgotPassword';
 
 function App() {
   return (
@@ -27,6 +30,9 @@ function App() {
                 <Route path="/pathways" element={<Pathways />} />
                 <Route path="/resources" element={<Resources />} />
                 <Route path="/profile" element={<Profile />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<SignUp />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </main>
