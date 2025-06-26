@@ -7,4 +7,11 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['lucide-react'],
   },
+  build: {
+    target: 'esnext',
+    minify: 'esbuild',
+  },
+  esbuild: {
+    target: 'esnext',
+  },
 });
