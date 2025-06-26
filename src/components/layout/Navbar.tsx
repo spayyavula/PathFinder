@@ -19,7 +19,6 @@ const Navbar: React.FC = () => {
     { name: 'Explore Careers', href: '/explore' },
     { name: 'Pathways', href: '/pathways' },
     { name: 'Resources', href: '/resources' },
-    { name: 'Progress', href: '/progress' },
   ];
 
   const isActive = (path: string) => location.pathname === path;

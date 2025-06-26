@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { User, BookOpen, Target, BarChart3, Edit, Save, Calendar, CreditCard, Crown } from 'lucide-react';
+import { User, BookOpen, Target, BarChart3, Edit, Save, Calendar, CreditCard, Crown, TrendingUp, Award } from 'lucide-react';
 import { useSubscription } from '../hooks/useSubscription';
 import { Link } from 'react-router-dom';
 
