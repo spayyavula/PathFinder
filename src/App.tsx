@@ -11,6 +11,8 @@ import Pathways from './pages/Pathways';
 import Resources from './pages/Resources';
 import Progress from './pages/Progress';
 import Profile from './pages/Profile';
+import Pricing from './pages/Pricing';
+import Success from './pages/Success';
 import NotFound from './pages/NotFound';
 import Login from './pages/auth/Login';
 import SignUp from './pages/auth/SignUp';
@@ -32,6 +34,8 @@ function App() {
                 <Route path="/resources" element={<Resources />} />
                 <Route path="/progress" element={<Progress />} />
                 <Route path="/profile" element={<Profile />} />
+                <Route path="/pricing" element={<Pricing />} />
+                <Route path="/success" element={<Success />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<SignUp />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />

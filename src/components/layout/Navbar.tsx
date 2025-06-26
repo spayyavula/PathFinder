@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X, GraduationCap, User, LogOut } from 'lucide-react';
+import { Menu, X, GraduationCap, User, LogOut, CreditCard } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useAuth } from '../../contexts/AuthContext';
+import { useSubscription } from '../../hooks/useSubscription';
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -10,6 +11,7 @@ const Navbar: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { user, signOut } = useAuth();
+  const { subscription } = useSubscription();
 
   const navigation = [
     { name: 'Home', href: '/' },
@@ -29,6 +31,20 @@ const Navbar: React.FC = () => {
     } catch (error) {
       console.error('Error signing out:', error);
     }
+  };
+
+  const getSubscriptionBadge = () => {
+    if (!subscription || !subscription.subscription_status) return null;
+    
+    if (subscription.subscription_status === 'active') {
+      return (
+        <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 ml-2">
+          Pro
+        </span>
+      );
+    }
+    
+    return null;
   };
 
   return (
@@ -60,6 +76,17 @@ const Navbar: React.FC = () => {
               
               {user ? (
                 <div className="relative ml-4 flex items-center space-x-4">
+                  <Link
+                    to="/pricing"
+                    className={`${
+                      isActive('/pricing')
+                        ? 'bg-indigo-50 text-indigo-700'
+                        : 'text-gray-700 hover:text-indigo-600 hover:bg-indigo-50'
+                    } flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200`}
+                  >
+                    <CreditCard className="h-5 w-5 mr-1" />
+                    Pricing
+                  </Link>
                   <Link 
                     to="/profile" 
                     className={`${
@@ -70,6 +97,7 @@ const Navbar: React.FC = () => {
                   >
                     <User className="h-5 w-5 mr-1" />
                     Profile
+                    {getSubscriptionBadge()}
                   </Link>
                   <button
                     onClick={handleSignOut}
@@ -81,6 +109,12 @@ const Navbar: React.FC = () => {
                 </div>
               ) : (
                 <div className="ml-4 flex items-center space-x-4">
+                  <Link
+                    to="/pricing"
+                    className="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                  >
+                    Pricing
+                  </Link>
                   <Link
                     to="/login"
                     className="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
@@ -134,6 +168,18 @@ const Navbar: React.FC = () => {
             {user ? (
               <>
                 <Link
+                  to="/pricing"
+                  className={`${
+                    isActive('/pricing')
+                      ? 'bg-indigo-50 text-indigo-700'
+                      : 'text-gray-700 hover:text-indigo-600 hover:bg-indigo-50'
+                  } block px-3 py-2 rounded-md text-base font-medium flex items-center`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <CreditCard className="h-5 w-5 mr-1" />
+                  Pricing
+                </Link>
+                <Link
                   to="/profile"
                   className={`${
                     isActive('/profile')
@@ -144,6 +190,7 @@ const Navbar: React.FC = () => {
                 >
                   <User className="h-5 w-5 mr-1" />
                   Profile
+                  {getSubscriptionBadge()}
                 </Link>
                 <button
                   onClick={() => {
@@ -158,6 +205,13 @@ const Navbar: React.FC = () => {
               </>
             ) : (
               <>
+                <Link
+                  to="/pricing"
+                  className="text-gray-700 hover:text-blue-600 hover:bg-blue-50 block px-3 py-2 rounded-md text-base font-medium"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Pricing
+                </Link>
                 <Link
                   to="/login"
                   className="text-gray-700 hover:text-blue-600 hover:bg-blue-50 block px-3 py-2 rounded-md text-base font-medium"
