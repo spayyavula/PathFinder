@@ -41,6 +41,8 @@ PathForwards is a comprehensive career guidance platform designed specifically f
 - **Routing**: React Router DOM
 - **Backend**: Supabase (Database, Authentication, Real-time)
 - **Authentication**: Multi-provider OAuth (Google, Microsoft, Facebook)
+- **Payments**: Stripe (Subscriptions and One-time payments)
+- **Deployment**: Netlify
 
 ## 📋 Prerequisites
 
@@ -67,6 +69,7 @@ PathForwards is a comprehensive career guidance platform designed specifically f
    ```env
    VITE_SUPABASE_URL=your_supabase_project_url
    VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+   VITE_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
    ```
 
 4. **Start the development server**
@@ -75,6 +78,30 @@ PathForwards is a comprehensive career guidance platform designed specifically f
    ```
 
 ## 🔧 Supabase Setup
+
+### Stripe Integration Setup
+
+The application includes a complete Stripe integration for handling subscriptions and one-time payments:
+
+1. **Stripe Configuration**
+   - Products and pricing are defined in `src/stripe-config.ts`
+   - Update the price IDs to match your Stripe products
+
+2. **Environment Variables**
+   ```env
+   VITE_STRIPE_PUBLISHABLE_KEY=pk_test_...
+   STRIPE_SECRET_KEY=sk_test_...
+   STRIPE_WEBHOOK_SECRET=whsec_...
+   ```
+
+3. **Webhook Setup**
+   - Configure webhooks in your Stripe dashboard
+   - Point to: `https://your-project.supabase.co/functions/v1/stripe-webhook`
+   - Enable events: `checkout.session.completed`, `customer.subscription.updated`, `customer.subscription.deleted`, `invoice.payment_succeeded`, `invoice.payment_failed`
+
+4. **Database Schema**
+   - The Stripe tables are already created via migrations
+   - Includes `stripe_customers`, `stripe_subscriptions`, and `stripe_orders`
 
 ### Database Schema
 

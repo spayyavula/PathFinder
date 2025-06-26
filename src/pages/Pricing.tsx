@@ -1,57 +1,19 @@
 import React, { useState } from 'react';
 import { Check, Star, Zap, Coffee, Heart } from 'lucide-react';
 import { products } from '../stripe-config';
-import { useAuth } from '../contexts/AuthContext';
-import { supabase } from '../lib/supabase';
+import { useStripeCheckout } from '../hooks/useStripeCheckout';
+import { useSubscription } from '../hooks/useSubscription';
+import SubscriptionStatus from '../components/SubscriptionStatus';
 
 const Pricing: React.FC = () => {
-  const { user } = useAuth();
-  const [loading, setLoading] = useState<string | null>(null);
+  const { redirectToCheckout, loading, error } = useStripeCheckout();
+  const { subscription } = useSubscription();
+  const [processingPriceId, setProcessingPriceId] = useState<string | null>(null);
 
   const handleCheckout = async (priceId: string, mode: 'payment' | 'subscription') => {
-    if (!user) {
-      window.location.href = '/login';
-      return;
-    }
-
-    setLoading(priceId);
-
-    try {
-      const { data: { session } } = await supabase.auth.getSession();
-      
-      if (!session) {
-        throw new Error('No active session');
-      }
-
-      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/stripe-checkout`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${session.access_token}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          price_id: priceId,
-          success_url: `${window.location.origin}/success`,
-          cancel_url: `${window.location.origin}/pricing`,
-          mode,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Failed to create checkout session');
-      }
-
-      if (data.url) {
-        window.location.href = data.url;
-      }
-    } catch (error) {
-      console.error('Checkout error:', error);
-      alert('Failed to start checkout. Please try again.');
-    } finally {
-      setLoading(null);
-    }
+    setProcessingPriceId(priceId);
+    await redirectToCheckout({ priceId, mode });
+    setProcessingPriceId(null);
   };
 
   const getProductIcon = (name: string) => {
@@ -146,7 +108,21 @@ const Pricing: React.FC = () => {
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Unlock your career potential with our comprehensive assessment and guidance tools
           </p>
+          
+          {/* Current Subscription Status */}
+          <div className="mt-8 flex justify-center">
+            <SubscriptionStatus showDetails={false} />
+          </div>
         </div>
+        
+        {/* Error Display */}
+        {error && (
+          <div className="mb-8 max-w-md mx-auto">
+            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md">
+              {error}
+            </div>
+          </div>
+        )}
 
         {/* Plans Section */}
         <div className="mb-16">
@@ -194,14 +170,15 @@ const Pricing: React.FC = () => {
 
                   <button
                     onClick={() => handleCheckout(product.priceId, product.mode)}
-                    disabled={loading === product.priceId}
+                    disabled={processingPriceId === product.priceId || loading}
                     className={`w-full py-3 px-6 rounded-lg font-semibold text-lg transition-all duration-200 ${
                       product.name === 'Enterprise Plan'
                         ? 'bg-purple-600 text-white hover:bg-purple-700'
                         : 'bg-blue-600 text-white hover:bg-blue-700'
                     } disabled:opacity-50 disabled:cursor-not-allowed`}
                   >
-                    {loading === product.priceId ? 'Processing...' : 'Get Started'}
+                    {processingPriceId === product.priceId ? 'Processing...' : 
+                     subscription?.subscription_status === 'active' && product.mode === 'subscription' ? 'Manage Plan' : 'Get Started'}
                   </button>
                 </div>
               </div>
@@ -244,10 +221,10 @@ const Pricing: React.FC = () => {
 
                   <button
                     onClick={() => handleCheckout(product.priceId, product.mode)}
-                    disabled={loading === product.priceId}
+                    disabled={processingPriceId === product.priceId || loading}
                     className="w-full py-2 px-4 rounded-lg font-semibold transition-all duration-200 bg-gray-800 text-white hover:bg-gray-900 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    {loading === product.priceId ? 'Processing...' : 'Support Now'}
+                    {processingPriceId === product.priceId ? 'Processing...' : 'Support Now'}
                   </button>
                 </div>
               </div>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { User, BookOpen, Target, BarChart3, Edit, Save, Calendar, CreditCard, Crown, TrendingUp, Award } from 'lucide-react';
-import { useSubscription } from '../hooks/useSubscription';
+import SubscriptionStatus from '../components/SubscriptionStatus';
 import { Link } from 'react-router-dom';
 
 const Profile: React.FC = () => {
@@ -12,8 +12,6 @@ const Profile: React.FC = () => {
     email: 'sarah.j@example.com',
     bio: 'I\'m interested in STEM fields, especially engineering and computer science. I enjoy problem solving and working on creative projects.'
   });
-  
-  const { subscription, loading: subscriptionLoading } = useSubscription();
   
   // Mock saved careers for demo
   const [savedCareers, setSavedCareers] = useState([
@@ -49,26 +47,6 @@ const Profile: React.FC = () => {
     setSavedCareers(savedCareers.filter(career => career.id !== id));
   };
 
-  const getSubscriptionStatus = () => {
-    if (subscriptionLoading) {
-      return <span className="text-gray-500">Loading...</span>;
-    }
-    
-    if (!subscription || !subscription.subscription_status) {
-      return <span className="text-gray-500">Free Plan</span>;
-    }
-    
-    if (subscription.subscription_status === 'active') {
-      return (
-        <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
-          <Crown className="h-4 w-4 mr-1" />
-          Enterprise Plan
-        </span>
-      );
-    }
-    
-    return <span className="text-gray-500">Free Plan</span>;
-  };
 
   return (
     <div className="bg-gray-50 min-h-screen py-8">
@@ -229,40 +207,12 @@ const Profile: React.FC = () => {
             </div>
 
             {/* Subscription Status */}
-            <div className="mt-8 bg-gray-50 rounded-lg p-6">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center">
-                  <CreditCard className="h-6 w-6 text-indigo-600 mr-2" />
-                  <h2 className="text-xl font-semibold text-gray-900">Subscription Status</h2>
-                </div>
-                {getSubscriptionStatus()}
+            <div className="mt-8">
+              <div className="flex items-center mb-4">
+                <CreditCard className="h-6 w-6 text-indigo-600 mr-2" />
+                <h2 className="text-xl font-semibold text-gray-900">Subscription</h2>
               </div>
-              
-              {subscription && subscription.subscription_status === 'active' && (
-                <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-600">
-                  {subscription.current_period_end && (
-                    <div>
-                      <span className="font-medium">Next billing date:</span>{' '}
-                      {new Date(subscription.current_period_end * 1000).toLocaleDateString()}
-                    </div>
-                  )}
-                  {subscription.payment_method_brand && subscription.payment_method_last4 && (
-                    <div>
-                      <span className="font-medium">Payment method:</span>{' '}
-                      {subscription.payment_method_brand.toUpperCase()} ending in {subscription.payment_method_last4}
-                    </div>
-                  )}
-                </div>
-              )}
-              
-              <div className="mt-4">
-                <Link
-                  to="/pricing"
-                  className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700"
-                >
-                  {subscription && subscription.subscription_status === 'active' ? 'Manage Subscription' : 'Upgrade Plan'}
-                </Link>
-              </div>
+              <SubscriptionStatus showDetails={true} />
             </div>
             
             {/* Assessment Results & Saved Content Section */}
