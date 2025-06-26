@@ -129,7 +129,7 @@ const Home: React.FC = () => {
                   <p className="text-gray-600 mb-6">{feature.description}</p>
                   <div className="space-y-2">
                     {feature.highlights.map((highlight, highlightIndex) => (
-                      <div key={topicIndex} className="flex items-center text-sm text-gray-500">
+                      <div key={highlightIndex} className="flex items-center text-sm text-gray-500">
                         <ChevronRight className="h-4 w-4 mr-2 text-indigo-500" />
                         {highlight}
                       </div>
