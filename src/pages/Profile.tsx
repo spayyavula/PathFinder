@@ -181,6 +181,52 @@ const Profile: React.FC = () => {
                 </div>
               )}
             </div>
+            
+            {/* Quick Progress Overview */}
+            <div className="mt-8 bg-gradient-to-r from-indigo-50 to-blue-50 rounded-lg p-6">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center">
+                  <TrendingUp className="h-6 w-6 text-indigo-600 mr-2" />
+                  <h2 className="text-xl font-semibold text-gray-900">Your Progress</h2>
+                </div>
+                <Link
+                  to="/progress"
+                  className="text-indigo-600 hover:text-indigo-700 font-medium text-sm flex items-center"
+                >
+                  View Details
+                  <BarChart3 className="h-4 w-4 ml-1" />
+                </Link>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="bg-white p-4 rounded-lg shadow-sm">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-medium text-gray-600">Assessments</span>
+                    <Award className="h-4 w-4 text-indigo-500" />
+                  </div>
+                  <div className="text-2xl font-bold text-gray-900">2/4</div>
+                  <div className="text-xs text-gray-500">Completed</div>
+                </div>
+                
+                <div className="bg-white p-4 rounded-lg shadow-sm">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-medium text-gray-600">Careers Explored</span>
+                    <BookOpen className="h-4 w-4 text-green-500" />
+                  </div>
+                  <div className="text-2xl font-bold text-gray-900">12</div>
+                  <div className="text-xs text-gray-500">This month</div>
+                </div>
+                
+                <div className="bg-white p-4 rounded-lg shadow-sm">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-medium text-gray-600">Goals Progress</span>
+                    <Target className="h-4 w-4 text-purple-500" />
+                  </div>
+                  <div className="text-2xl font-bold text-gray-900">33%</div>
+                  <div className="text-xs text-gray-500">On track</div>
+                </div>
+              </div>
+            </div>
 
             {/* Subscription Status */}
             <div className="mt-8 bg-gray-50 rounded-lg p-6">
