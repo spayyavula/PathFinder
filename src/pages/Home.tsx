@@ -1,55 +1,58 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { BookOpen, Award, Target, Users, Play, ChevronRight } from 'lucide-react';
+import { Compass, Brain, TrendingUp, Users, Play, ChevronRight, Target, Award, BookOpen } from 'lucide-react';
 
 const Home: React.FC = () => {
-  const subjects = [
+  const features = [
     {
-      name: 'Physics',
-      description: 'Explore the fundamental laws of nature',
-      icon: '⚛️',
-      color: 'from-blue-500 to-blue-600',
-      topics: ['Mechanics', 'Thermodynamics', 'Electromagnetism', 'Quantum Physics']
+      name: 'Career Assessment',
+      description: 'Discover your strengths, interests, and ideal career matches',
+      icon: <Brain className="h-12 w-12" />,
+      color: 'from-indigo-500 to-purple-600',
+      link: '/assessment',
+      highlights: ['Personality Analysis', 'Skills Assessment', 'Interest Mapping', 'Career Matching']
     },
     {
-      name: 'Chemistry',
-      description: 'Understand matter and its interactions',
-      icon: '🧪',
-      color: 'from-green-500 to-green-600',
-      topics: ['Organic Chemistry', 'Inorganic Chemistry', 'Physical Chemistry', 'Biochemistry']
+      name: 'Career Explorer',
+      description: 'Explore hundreds of careers with detailed insights',
+      icon: <Compass className="h-12 w-12" />,
+      color: 'from-blue-500 to-cyan-600',
+      link: '/explore',
+      highlights: ['Career Database', 'Salary Information', 'Job Outlook', 'Required Skills']
     },
     {
-      name: 'Mathematics',
-      description: 'Master the language of science',
-      icon: '📐',
-      color: 'from-purple-500 to-purple-600',
-      topics: ['Algebra', 'Calculus', 'Geometry', 'Statistics']
+      name: 'Educational Pathways',
+      description: 'Plan your educational journey to reach your goals',
+      icon: <TrendingUp className="h-12 w-12" />,
+      color: 'from-green-500 to-emerald-600',
+      link: '/pathways',
+      highlights: ['College Planning', 'Degree Requirements', 'Timeline Planning', 'Alternative Paths']
     }
   ];
 
-  const features = [
+  const benefits = [
     {
-      icon: <BookOpen className="h-8 w-8" />,
-      title: 'Interactive Lessons',
-      description: 'Engaging video lessons with step-by-step explanations and visual demonstrations.',
-      color: 'bg-blue-50 text-blue-600'
+      icon: <Target className="h-8 w-8" />,
+      title: 'Personalized Guidance',
+      description: 'Get tailored career recommendations based on your unique personality and interests.',
+      color: 'bg-indigo-50 text-indigo-600'
     },
     {
       icon: <Award className="h-8 w-8" />,
-      title: 'Practice Problems',
-      description: 'Thousands of practice problems with instant feedback and detailed solutions.',
+      title: 'Expert Insights',
+      description: 'Access comprehensive career information from industry professionals and experts.',
       color: 'bg-green-50 text-green-600'
     },
     {
-      icon: <Target className="h-8 w-8" />,
-      title: 'Progress Tracking',
-      description: 'Monitor your learning journey with detailed analytics and achievement badges.',
+      icon: <BookOpen className="h-8 w-8" />,
+      title: 'Educational Planning',
+      description: 'Understand the educational requirements and pathways for your chosen career.',
       color: 'bg-purple-50 text-purple-600'
     },
     {
       icon: <Users className="h-8 w-8" />,
-      title: 'Study Groups',
-      description: 'Connect with peers, join study groups, and learn together in our community.',
+      title: 'Peer Community',
+      description: 'Connect with other students exploring similar career paths and share experiences.',
       color: 'bg-orange-50 text-orange-600'
     }
   ];
@@ -57,44 +60,44 @@ const Home: React.FC = () => {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white py-20 overflow-hidden">
+      <section className="relative bg-gradient-to-br from-indigo-600 via-purple-700 to-blue-800 text-white py-20 overflow-hidden">
         <div className="absolute inset-0 bg-black opacity-10"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row items-center">
             <div className="lg:w-1/2 mb-10 lg:mb-0 lg:pr-10">
               <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-                Master Science & Math
-                <span className="block text-blue-200">Like Never Before</span>
+                Discover Your
+                <span className="block text-purple-200">Perfect Career Path</span>
               </h1>
-              <p className="text-xl mb-8 text-blue-100 leading-relaxed">
-                Join millions of students learning Physics, Chemistry, and Mathematics through our 
-                interactive platform. From basics to advanced concepts, we make learning engaging and effective.
+              <p className="text-xl mb-8 text-purple-100 leading-relaxed">
+                Take our comprehensive assessment to discover careers that match your personality, 
+                interests, and skills. Make informed decisions about your future with expert guidance.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link
-                  to="/subjects"
-                  className="bg-white text-blue-700 hover:bg-blue-50 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-200 transform hover:scale-105 shadow-lg"
+                  to="/assessment"
+                  className="bg-white text-indigo-700 hover:bg-purple-50 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-200 transform hover:scale-105 shadow-lg"
                 >
-                  Start Learning
+                  Take Assessment
                 </Link>
                 <Link
-                  to="/practice"
-                  className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-blue-700 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-200 flex items-center justify-center"
+                  to="/explore"
+                  className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-indigo-700 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-200 flex items-center justify-center"
                 >
-                  <Play className="h-5 w-5 mr-2" />
-                  Take Practice Test
+                  <Compass className="h-5 w-5 mr-2" />
+                  Explore Careers
                 </Link>
               </div>
             </div>
             <div className="lg:w-1/2 flex justify-center">
               <div className="relative">
                 <img 
-                  src="https://images.pexels.com/photos/3862130/pexels-photo-3862130.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
-                  alt="Students learning science" 
+                  src="https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
+                  alt="Students planning their future careers" 
                   className="rounded-2xl shadow-2xl max-w-full h-auto transform rotate-3 hover:rotate-0 transition-transform duration-300"
                 />
                 <div className="absolute -bottom-4 -left-4 bg-yellow-400 text-yellow-900 px-4 py-2 rounded-lg font-semibold shadow-lg">
-                  🎯 98% Success Rate
+                  🎯 95% Career Match Rate
                 </div>
               </div>
             </div>
@@ -102,38 +105,38 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Subjects Section */}
+      {/* Features Section */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Choose Your Subject</h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Start Your Career Journey</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Dive deep into the subjects that shape our understanding of the world
+              Discover your ideal career path through our comprehensive assessment and exploration tools
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {subjects.map((subject, index) => (
+            {features.map((feature, index) => (
               <Link
                 key={index}
-                to={`/subjects/${subject.name.toLowerCase()}`}
+                to={feature.link}
                 className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden"
               >
-                <div className={`absolute inset-0 bg-gradient-to-br ${subject.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}></div>
+                <div className={`absolute inset-0 bg-gradient-to-br ${feature.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}></div>
                 <div className="p-8">
-                  <div className="text-6xl mb-4">{subject.icon}</div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-3">{subject.name}</h3>
-                  <p className="text-gray-600 mb-6">{subject.description}</p>
+                  <div className="text-indigo-600 mb-4">{feature.icon}</div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-3">{feature.name}</h3>
+                  <p className="text-gray-600 mb-6">{feature.description}</p>
                   <div className="space-y-2">
-                    {subject.topics.map((topic, topicIndex) => (
+                    {feature.highlights.map((highlight, highlightIndex) => (
                       <div key={topicIndex} className="flex items-center text-sm text-gray-500">
-                        <ChevronRight className="h-4 w-4 mr-2 text-blue-500" />
-                        {topic}
+                        <ChevronRight className="h-4 w-4 mr-2 text-indigo-500" />
+                        {highlight}
                       </div>
                     ))}
                   </div>
-                  <div className="mt-6 flex items-center text-blue-600 font-semibold group-hover:text-blue-700">
-                    Start Learning
+                  <div className="mt-6 flex items-center text-indigo-600 font-semibold group-hover:text-indigo-700">
+                    Get Started
                     <ChevronRight className="h-5 w-5 ml-1 transform group-hover:translate-x-1 transition-transform" />
                   </div>
                 </div>
@@ -143,24 +146,24 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Features Section */}
+      {/* Benefits Section */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Why Choose EduMaster?</h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Why Choose PathForwards?</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Our platform combines cutting-edge technology with proven educational methods
+              Our platform combines scientific assessment methods with comprehensive career insights
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {features.map((feature, index) => (
+            {benefits.map((benefit, index) => (
               <div key={index} className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
-                <div className={`${feature.color} w-16 h-16 rounded-xl flex items-center justify-center mb-6`}>
-                  {feature.icon}
+                <div className={`${benefit.color} w-16 h-16 rounded-xl flex items-center justify-center mb-6`}>
+                  {benefit.icon}
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">{benefit.title}</h3>
+                <p className="text-gray-600 leading-relaxed">{benefit.description}</p>
               </div>
             ))}
           </div>
@@ -168,24 +171,24 @@ const Home: React.FC = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="py-20 bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
+      <section className="py-20 bg-gradient-to-r from-indigo-600 to-purple-700 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
             <div>
-              <div className="text-4xl font-bold mb-2">1M+</div>
-              <div className="text-blue-200">Students Learning</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold mb-2">10K+</div>
-              <div className="text-blue-200">Video Lessons</div>
-            </div>
-            <div>
               <div className="text-4xl font-bold mb-2">50K+</div>
-              <div className="text-blue-200">Practice Problems</div>
+              <div className="text-purple-200">Students Guided</div>
             </div>
             <div>
-              <div className="text-4xl font-bold mb-2">98%</div>
-              <div className="text-blue-200">Success Rate</div>
+              <div className="text-4xl font-bold mb-2">500+</div>
+              <div className="text-purple-200">Career Profiles</div>
+            </div>
+            <div>
+              <div className="text-4xl font-bold mb-2">95%</div>
+              <div className="text-purple-200">Match Accuracy</div>
+            </div>
+            <div>
+              <div className="text-4xl font-bold mb-2">100+</div>
+              <div className="text-purple-200">Educational Pathways</div>
             </div>
           </div>
         </div>
@@ -194,22 +197,22 @@ const Home: React.FC = () => {
       {/* CTA Section */}
       <section className="py-20 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold text-gray-900 mb-6">Ready to Start Your Learning Journey?</h2>
+          <h2 className="text-4xl font-bold text-gray-900 mb-6">Ready to Discover Your Future?</h2>
           <p className="text-xl text-gray-600 mb-8">
-            Join millions of students who are already mastering science and math with EduMaster
+            Join thousands of students who have found their perfect career path with PathForwards
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link
-              to="/signup"
-              className="bg-blue-600 text-white hover:bg-blue-700 px-8 py-4 rounded-lg font-semibold text-lg transition-colors duration-200"
+              to="/assessment"
+              className="bg-indigo-600 text-white hover:bg-indigo-700 px-8 py-4 rounded-lg font-semibold text-lg transition-colors duration-200"
             >
-              Get Started Free
+              Take Free Assessment
             </Link>
             <Link
-              to="/subjects"
+              to="/explore"
               className="bg-gray-100 text-gray-900 hover:bg-gray-200 px-8 py-4 rounded-lg font-semibold text-lg transition-colors duration-200"
             >
-              Explore Subjects
+              Explore Careers
             </Link>
           </div>
         </div>

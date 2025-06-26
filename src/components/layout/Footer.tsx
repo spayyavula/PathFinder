@@ -10,12 +10,12 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="md:col-span-2">
             <div className="flex items-center mb-4">
-              <GraduationCap className="h-8 w-8 mr-2 text-blue-400" />
-              <h3 className="text-xl font-bold">EduMaster</h3>
+              <GraduationCap className="h-8 w-8 mr-2 text-indigo-400" />
+              <h3 className="text-xl font-bold">PathForwards</h3>
             </div>
             <p className="text-gray-300 text-sm mb-4">
-              Empowering students with comprehensive learning resources in Physics, Chemistry, and Mathematics. 
-              From basics to advanced concepts, we make learning engaging and accessible.
+              Guiding high school students toward their ideal career paths through comprehensive assessments, 
+              personality insights, and expert career guidance. Your future starts here.
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-gray-400 hover:text-white transition-colors">
@@ -40,12 +40,12 @@ const Footer: React.FC = () => {
           </div>
           
           <div>
-            <h3 className="text-lg font-semibold mb-4">Subjects</h3>
+            <h3 className="text-lg font-semibold mb-4">Explore</h3>
             <ul className="space-y-2 text-sm">
-              <li><a href="/subjects/physics" className="text-gray-300 hover:text-white transition-colors">Physics</a></li>
-              <li><a href="/subjects/chemistry" className="text-gray-300 hover:text-white transition-colors">Chemistry</a></li>
-              <li><a href="/subjects/mathematics" className="text-gray-300 hover:text-white transition-colors">Mathematics</a></li>
-              <li><a href="/practice" className="text-gray-300 hover:text-white transition-colors">Practice Tests</a></li>
+              <li><a href="/assessment" className="text-gray-300 hover:text-white transition-colors">Career Assessment</a></li>
+              <li><a href="/explore" className="text-gray-300 hover:text-white transition-colors">Career Explorer</a></li>
+              <li><a href="/pathways" className="text-gray-300 hover:text-white transition-colors">Educational Pathways</a></li>
+              <li><a href="/resources" className="text-gray-300 hover:text-white transition-colors">Career Resources</a></li>
             </ul>
           </div>
           
@@ -62,7 +62,7 @@ const Footer: React.FC = () => {
         
         <div className="mt-8 pt-6 border-t border-gray-800 flex flex-col sm:flex-row justify-between items-center">
           <p className="text-sm text-gray-400">
-            © {currentYear} EduMaster. All rights reserved.
+            © {currentYear} PathForwards. All rights reserved.
           </p>
           <p className="text-sm text-gray-400 mt-2 sm:mt-0 flex items-center">
             Made with <Heart className="h-4 w-4 mx-1 text-red-400" /> for students worldwide

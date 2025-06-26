@@ -13,9 +13,10 @@ const Navbar: React.FC = () => {
 
   const navigation = [
     { name: 'Home', href: '/' },
-    { name: 'Subjects', href: '/subjects' },
-    { name: 'Learn', href: '/learn' },
-    { name: 'Practice', href: '/practice' },
+    { name: 'Assessment', href: '/assessment' },
+    { name: 'Explore Careers', href: '/explore' },
+    { name: 'Pathways', href: '/pathways' },
+    { name: 'Resources', href: '/resources' },
     { name: 'Progress', href: '/progress' },
   ];
 
@@ -36,8 +37,8 @@ const Navbar: React.FC = () => {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <Link to="/" className="flex items-center">
-              <GraduationCap className="h-8 w-8 mr-2 text-blue-600" />
-              <span className="font-bold text-xl text-gray-900">EduMaster</span>
+              <GraduationCap className="h-8 w-8 mr-2 text-indigo-600" />
+              <span className="font-bold text-xl text-gray-900">PathForwards</span>
             </Link>
           </div>
           
@@ -49,8 +50,8 @@ const Navbar: React.FC = () => {
                   to={item.href}
                   className={`${
                     isActive(item.href)
-                      ? 'bg-blue-50 text-blue-700 border-b-2 border-blue-600'
-                      : 'text-gray-700 hover:text-blue-600 hover:bg-blue-50'
+                      ? 'bg-indigo-50 text-indigo-700 border-b-2 border-indigo-600'
+                      : 'text-gray-700 hover:text-indigo-600 hover:bg-indigo-50'
                   } px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200`}
                 >
                   {item.name}
@@ -63,8 +64,8 @@ const Navbar: React.FC = () => {
                     to="/profile" 
                     className={`${
                       isActive('/profile')
-                        ? 'bg-blue-50 text-blue-700'
-                        : 'text-gray-700 hover:text-blue-600 hover:bg-blue-50'
+                        ? 'bg-indigo-50 text-indigo-700'
+                        : 'text-gray-700 hover:text-indigo-600 hover:bg-indigo-50'
                     } flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200`}
                   >
                     <User className="h-5 w-5 mr-1" />
@@ -72,7 +73,7 @@ const Navbar: React.FC = () => {
                   </Link>
                   <button
                     onClick={handleSignOut}
-                    className="flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors duration-200"
+                    className="flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 transition-colors duration-200"
                   >
                     <LogOut className="h-5 w-5 mr-1" />
                     Sign Out
@@ -82,13 +83,13 @@ const Navbar: React.FC = () => {
                 <div className="ml-4 flex items-center space-x-4">
                   <Link
                     to="/login"
-                    className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                    className="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
                   >
                     Sign In
                   </Link>
                   <Link
                     to="/signup"
-                    className="bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                    className="bg-indigo-600 text-white hover:bg-indigo-700 px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200"
                   >
                     Sign Up
                   </Link>
@@ -135,9 +136,9 @@ const Navbar: React.FC = () => {
                 <Link
                   to="/profile"
                   className={`${
-                    isActive('/profile')
-                      ? 'bg-blue-50 text-blue-700'
-                      : 'text-gray-700 hover:text-blue-600 hover:bg-blue-50'
+                        ? 'bg-indigo-50 text-indigo-700'
+                        : 'text-gray-700 hover:text-indigo-600 hover:bg-indigo-50'
+                      : 'text-gray-700 hover:text-indigo-600 hover:bg-indigo-50'
                   } block px-3 py-2 rounded-md text-base font-medium flex items-center`}
                   onClick={() => setIsMenuOpen(false)}
                 >
@@ -148,7 +149,7 @@ const Navbar: React.FC = () => {
                   onClick={() => {
                     handleSignOut();
                     setIsMenuOpen(false);
-                  }}
+                    className="w-full text-left text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 block px-3 py-2 rounded-md text-base font-medium flex items-center"
                   className="w-full text-left text-gray-700 hover:text-blue-600 hover:bg-blue-50 block px-3 py-2 rounded-md text-base font-medium flex items-center"
                 >
                   <LogOut className="h-5 w-5 mr-1" />
@@ -158,14 +159,14 @@ const Navbar: React.FC = () => {
             ) : (
               <>
                 <Link
-                  to="/login"
+                    className="text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 block px-3 py-2 rounded-md text-base font-medium"
                   className="text-gray-700 hover:text-blue-600 hover:bg-blue-50 block px-3 py-2 rounded-md text-base font-medium"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Sign In
                 </Link>
                 <Link
-                  to="/signup"
+                    className="bg-indigo-600 text-white hover:bg-indigo-700 block px-3 py-2 rounded-md text-base font-medium"
                   className="bg-blue-600 text-white hover:bg-blue-700 block px-3 py-2 rounded-md text-base font-medium"
                   onClick={() => setIsMenuOpen(false)}
                 >

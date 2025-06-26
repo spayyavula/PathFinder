@@ -5,17 +5,16 @@ import { AuthProvider } from './contexts/AuthContext';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Home from './pages/Home';
-import Subjects from './pages/Subjects';
-import Learn from './pages/Learn';
-import Practice from './pages/Practice';
+import Assessment from './pages/Assessment';
+import CareerExplorer from './pages/CareerExplorer';
+import Pathways from './pages/Pathways';
+import Resources from './pages/Resources';
 import Progress from './pages/Progress';
 import Profile from './pages/Profile';
 import NotFound from './pages/NotFound';
 import Login from './pages/auth/Login';
 import SignUp from './pages/auth/SignUp';
 import ForgotPassword from './pages/auth/ForgotPassword';
-import SubjectDetail from './pages/SubjectDetail';
-import LessonDetail from './pages/LessonDetail';
 
 function App() {
   return (
@@ -27,11 +26,10 @@ function App() {
             <main className="flex-grow">
               <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/subjects" element={<Subjects />} />
-                <Route path="/subjects/:subject" element={<SubjectDetail />} />
-                <Route path="/learn/:subject/:topic" element={<LessonDetail />} />
-                <Route path="/learn" element={<Learn />} />
-                <Route path="/practice" element={<Practice />} />
+                <Route path="/assessment" element={<Assessment />} />
+                <Route path="/explore" element={<CareerExplorer />} />
+                <Route path="/pathways" element={<Pathways />} />
+                <Route path="/resources" element={<Resources />} />
                 <Route path="/progress" element={<Progress />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/login" element={<Login />} />

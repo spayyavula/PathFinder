@@ -1,27 +1,36 @@
-# EduMaster - Khan Academy Style Learning Platform
+# PathForwards - Career Discovery Platform for High School Students
 
-EduMaster is a comprehensive online learning platform designed for students to master Physics, Chemistry, and Mathematics. Built with modern web technologies, it provides an engaging and interactive learning experience similar to Khan Academy.
+PathForwards is a comprehensive career guidance platform designed specifically for high school students. Through personality assessments, skill evaluations, and extensive career exploration tools, we help students make informed decisions about their future career paths.
 
 ## 🌟 Features
 
-### Core Learning Features
-- **Interactive Video Lessons**: Comprehensive video content with step-by-step explanations
-- **Practice Tests**: Extensive question banks with instant feedback
-- **Progress Tracking**: Detailed analytics and learning progress visualization
-- **Adaptive Learning**: Personalized learning paths based on student performance
-- **Achievement System**: Badges and rewards to motivate continued learning
+### Core Career Guidance Features
+- **Personality Assessment**: Comprehensive evaluation of personality traits, interests, and aptitudes
+- **Career Explorer**: Detailed database of 500+ careers with salary information, job outlook, and requirements
+- **Educational Pathways**: Step-by-step guidance on educational requirements for different careers
+- **Progress Tracking**: Monitor assessment completion and career exploration journey
+- **Resource Library**: Curated collection of career planning resources and tools
 
-### Subject Coverage
-- **Physics**: Classical Mechanics, Thermodynamics, Electromagnetism, Quantum Physics, Relativity
-- **Chemistry**: Atomic Structure, Chemical Bonding, Organic Chemistry, Inorganic Chemistry, Physical Chemistry
-- **Mathematics**: Algebra, Geometry, Trigonometry, Calculus, Linear Algebra, Statistics
+### Assessment Capabilities
+- **Interest Inventory**: Discover what truly motivates and excites you
+- **Personality Analysis**: Understand your work style and preferences
+- **Skills Assessment**: Identify your natural talents and developed abilities
+- **Values Clarification**: Align career choices with personal values
+- **Career Matching**: AI-powered recommendations based on assessment results
+
+### Career Exploration
+- **Industry Insights**: Comprehensive information about different industries
+- **Job Market Trends**: Current and projected employment outlook
+- **Salary Information**: Realistic salary expectations by region and experience
+- **Educational Requirements**: Detailed pathways from high school to career
+- **Day-in-the-Life**: Real stories from professionals in various fields
 
 ### User Experience
 - **Responsive Design**: Optimized for desktop, tablet, and mobile devices
-- **Dark/Light Theme**: Customizable interface themes
-- **Search & Filter**: Advanced content discovery and filtering
-- **Bookmarking**: Save favorite lessons and topics
-- **Study Groups**: Collaborative learning features
+- **Intuitive Interface**: Clean, modern design focused on user experience
+- **Progress Saving**: Resume assessments and exploration where you left off
+- **Personalized Dashboard**: Track your journey and saved careers
+- **Goal Setting**: Set and monitor career-related goals
 
 ## 🚀 Tech Stack
 
@@ -44,7 +53,7 @@ EduMaster is a comprehensive online learning platform designed for students to m
 1. **Clone the repository**
    ```bash
    git clone <repository-url>
-   cd edumaster
+   cd pathforwards
    ```
 
 2. **Install dependencies**
@@ -84,27 +93,20 @@ CREATE TABLE users (
   updated_at timestamptz DEFAULT now()
 );
 
--- Progress tracking
-CREATE TABLE lesson_progress (
+-- Assessment results
+CREATE TABLE assessment_results (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id uuid REFERENCES users(id) ON DELETE CASCADE,
-  lesson_id text NOT NULL,
-  progress_percentage integer DEFAULT 0,
-  completed boolean DEFAULT false,
-  time_spent integer DEFAULT 0, -- in seconds
-  last_accessed timestamptz DEFAULT now(),
+  category text NOT NULL,
+  score float NOT NULL,
   created_at timestamptz DEFAULT now()
 );
 
--- Test results
-CREATE TABLE test_results (
+-- Saved careers
+CREATE TABLE saved_careers (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id uuid REFERENCES users(id) ON DELETE CASCADE,
-  test_id text NOT NULL,
-  score integer NOT NULL,
-  total_questions integer NOT NULL,
-  time_taken integer, -- in seconds
-  answers jsonb,
+  career_id text NOT NULL,
   created_at timestamptz DEFAULT now()
 );
 
@@ -113,31 +115,10 @@ CREATE TABLE goals (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id uuid REFERENCES users(id) ON DELETE CASCADE,
   title text NOT NULL,
-  description text,
-  target_date date,
   completed boolean DEFAULT false,
+  deadline date,
   created_at timestamptz DEFAULT now(),
   updated_at timestamptz DEFAULT now()
-);
-
--- Achievements
-CREATE TABLE achievements (
-  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id uuid REFERENCES users(id) ON DELETE CASCADE,
-  achievement_type text NOT NULL,
-  title text NOT NULL,
-  description text,
-  icon text,
-  earned_at timestamptz DEFAULT now()
-);
-
--- Bookmarked content
-CREATE TABLE bookmarks (
-  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id uuid REFERENCES users(id) ON DELETE CASCADE,
-  content_type text NOT NULL, -- 'lesson', 'topic', 'test'
-  content_id text NOT NULL,
-  created_at timestamptz DEFAULT now()
 );
 ```
 
@@ -183,11 +164,10 @@ src/
 │   └── ThemeContext.tsx
 ├── pages/
 │   ├── Home.tsx
-│   ├── Subjects.tsx
-│   ├── SubjectDetail.tsx
-│   ├── LessonDetail.tsx
-│   ├── Learn.tsx
-│   ├── Practice.tsx
+│   ├── Assessment.tsx
+│   ├── CareerExplorer.tsx
+│   ├── Pathways.tsx
+│   ├── Resources.tsx
 │   ├── Progress.tsx
 │   ├── Profile.tsx
 │   └── auth/
@@ -195,9 +175,10 @@ src/
 │       ├── SignUp.tsx
 │       └── ForgotPassword.tsx
 ├── data/
-│   ├── subjects.ts
-│   ├── lessons.ts
-│   └── questions.ts
+│   ├── careers.ts
+│   ├── assessmentQuestions.ts
+│   ├── pathways.ts
+│   └── resources.ts
 ├── lib/
 │   └── supabase.ts
 └── types/
@@ -206,29 +187,30 @@ src/
 
 ## 🎯 Key Features Implementation
 
-### 1. Video Lessons
-- Interactive video player with custom controls
-- Progress tracking and resume functionality
-- Transcript and note-taking capabilities
-- Related content suggestions
+### 1. Career Assessment
+- Multi-dimensional personality evaluation
+- Interest and aptitude testing
+- Skills assessment with real-world scenarios
+- Values clarification exercises
+- Comprehensive scoring and analysis
 
-### 2. Practice System
-- Adaptive question difficulty
-- Instant feedback and explanations
-- Performance analytics
-- Spaced repetition algorithms
+### 2. Career Matching Algorithm
+- Weighted scoring based on assessment results
+- Machine learning-enhanced recommendations
+- Industry trend integration
+- Continuous improvement based on user feedback
 
-### 3. Progress Tracking
-- Real-time progress updates
-- Visual progress indicators
-- Learning streaks and milestones
-- Detailed performance analytics
+### 3. Educational Pathways
+- Step-by-step educational planning
+- Alternative pathway exploration
+- Timeline and milestone tracking
+- Resource recommendations for each step
 
-### 4. Achievement System
-- Automatic achievement detection
-- Badge collection and display
-- Social sharing capabilities
-- Motivation through gamification
+### 4. Progress Tracking
+- Assessment completion tracking
+- Career exploration history
+- Goal setting and monitoring
+- Achievement system with badges
 
 ## 🔒 Security Features
 
@@ -237,12 +219,12 @@ src/
 - **Data Protection**: Encrypted data transmission
 - **Privacy**: GDPR-compliant data handling
 
-## 📊 Analytics & Monitoring
+## 📊 Analytics & Insights
 
-- **User Analytics**: Learning patterns and engagement metrics
-- **Performance Monitoring**: Application performance tracking
-- **Error Tracking**: Comprehensive error logging
-- **A/B Testing**: Feature experimentation framework
+- **User Journey Analytics**: Track how students navigate career exploration
+- **Assessment Analytics**: Understand common personality patterns and career preferences
+- **Career Trends**: Monitor which careers are most popular among students
+- **Success Metrics**: Track student satisfaction and career decision confidence
 
 ## 🚀 Deployment
 
@@ -281,31 +263,31 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Documentation**: [Wiki](link-to-wiki)
 - **Issues**: [GitHub Issues](link-to-issues)
 - **Community**: [Discord Server](link-to-discord)
-- **Email**: support@edumaster.com
+- **Email**: support@pathforwards.com
 
 ## 🗺️ Roadmap
 
 ### Phase 1 (Current)
-- ✅ Core learning platform
-- ✅ Video lessons and practice tests
-- ✅ Progress tracking
-- ✅ User authentication
+- ✅ Core assessment platform
+- ✅ Career exploration database
+- ✅ Educational pathways
+- ✅ User authentication and profiles
 
 ### Phase 2 (Next)
-- 🔄 AI-powered personalized learning paths
-- 🔄 Live tutoring sessions
-- 🔄 Collaborative study groups
-- 🔄 Mobile app development
+- 🔄 AI-powered career counseling chatbot
+- 🔄 Video interviews with professionals
+- 🔄 Internship and job shadow matching
+- 🔄 Parent/counselor dashboard
 
 ### Phase 3 (Future)
-- 📋 Advanced analytics dashboard
-- 📋 Teacher/parent portal
-- 📋 Certification programs
-- 📋 API for third-party integrations
+- 📋 College application integration
+- 📋 Scholarship matching system
+- 📋 Alumni mentorship program
+- 📋 API for school integration
 
 ## 🙏 Acknowledgments
 
-- Inspired by Khan Academy's educational approach
+- Inspired by evidence-based career counseling practices
 - Built with modern React and TypeScript best practices
 - Powered by Supabase for backend infrastructure
 - UI components styled with Tailwind CSS
@@ -313,4 +295,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**EduMaster** - Empowering students to master science and mathematics through interactive, engaging, and personalized learning experiences.
+**PathForwards** - Guiding high school students toward their ideal career paths through comprehensive assessment, exploration, and planning tools.
