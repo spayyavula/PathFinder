@@ -7,6 +7,8 @@ const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 const hasValidUrl = supabaseUrl && !supabaseUrl.includes('your-project-id') && !supabaseUrl.includes('your_supabase_project_url_here');
 const hasValidKey = supabaseAnonKey && !supabaseAnonKey.includes('your_supabase_anon_key_here');
 
+let supabaseClient: any;
+
 if (!hasValidUrl || !hasValidKey) {
   console.warn('⚠️ Supabase not configured. Using mock client for development.');
   console.warn('To enable Supabase features:');
@@ -14,7 +16,7 @@ if (!hasValidUrl || !hasValidKey) {
   console.warn('2. Or manually update your .env file with actual Supabase credentials');
   
   // Create a mock client that won't throw errors
-  export const supabase = {
+  supabaseClient = {
     auth: {
       signUp: () => Promise.resolve({ data: null, error: { message: 'Supabase not configured' } }),
       signInWithPassword: () => Promise.resolve({ data: null, error: { message: 'Supabase not configured' } }),
@@ -31,7 +33,7 @@ if (!hasValidUrl || !hasValidKey) {
       delete: () => Promise.resolve({ data: null, error: { message: 'Supabase not configured' } }),
       upsert: () => Promise.resolve({ data: null, error: { message: 'Supabase not configured' } })
     })
-  } as any;
+  };
 } else {
   // Validate URL format
   try {
@@ -43,5 +45,7 @@ if (!hasValidUrl || !hasValidKey) {
     );
   }
 
-  export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+  supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
 }
+
+export const supabase = supabaseClient;
